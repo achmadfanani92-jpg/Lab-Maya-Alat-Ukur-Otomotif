@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+/* ───────── Tema LAB MAYA: biru navy · merah · abu-abu ───────── */
+@theme {
+  /* Tata letak selalu memakai versi layar lebar: seluruh lab berada di panggung 16:9 (1920×1080) yang diskalakan */
+  --breakpoint-sm: 0px;
+  --breakpoint-md: 0px;
+  --breakpoint-lg: 0px;
+  --breakpoint-xl: 0px;
+  --breakpoint-2xl: 0px;
+
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  --color-navy-950: #060f2b;
+  --color-navy-900: #0b1f4b;
+  --color-navy-800: #12295f;
+  --color-navy-700: #1a3a7c;
+  --color-brand-red: #e4282d;
+  --color-brand-red-dark: #b81c21;
+  --color-steel: #c9ced8;
+
+  /* skala "sky" & "indigo" dipetakan ke biru navy agar semua komponen lab ikut berganti warna */
+  --color-sky-50: #eef2fa;
+  --color-sky-100: #dce4f5;
+  --color-sky-200: #bccbea;
+  --color-sky-500: #2f4f9e;
+  --color-sky-600: #1f3b80;
+  --color-sky-700: #162d66;
+  --color-sky-800: #0f2252;
+  --color-sky-900: #0a1a40;
+  --color-indigo-500: #2f4f9e;
+  --color-indigo-600: #1f3b80;
+  --color-indigo-900: #0a1a40;
+  --color-cyan-500: #3b63c9;
+  --color-violet-500: #e4282d;
+
+  /* abu-abu kebiruan (menggantikan slate bawaan) */
+  --color-slate-50: #f3f5f9;
+  --color-slate-100: #e8ecf3;
+  --color-slate-200: #d3d9e4;
+  --color-slate-300: #b4bdcd;
+  --color-slate-400: #8e99ae;
+  --color-slate-500: #667189;
+  --color-slate-600: #4b566d;
+  --color-slate-700: #34405a;
+  --color-slate-800: #1e2a47;
+  --color-slate-900: #0f1a36;
+}
+
+html, body { font-family: var(--font-sans); background: #060f2b; }
+h1, h2, h3, .font-display { font-family: var(--font-display); }
+
+/* ───────── Animasi umum (slide · zoom · fade · pop-up) ───────── */
+@keyframes lm-fade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes lm-slide-up { from { opacity: 0; transform: translateY(28px) } to { opacity: 1; transform: none } }
+@keyframes lm-slide-right { from { opacity: 0; transform: translateX(-40px) } to { opacity: 1; transform: none } }
+@keyframes lm-zoom { from { opacity: 0; transform: scale(.94) } to { opacity: 1; transform: none } }
+@keyframes lm-pop { 0% { opacity: 0; transform: scale(.4) } 60% { opacity: 1; transform: scale(1.08) } 100% { transform: scale(1) } }
+@keyframes lm-float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+@keyframes lm-sheen { from { transform: translateX(-120%) skewX(-20deg) } to { transform: translateX(260%) skewX(-20deg) } }
+
+.lm-page { animation: lm-zoom .45s cubic-bezier(.2,.8,.2,1) both; }
+.lm-stagger > * { animation: lm-slide-up .55s cubic-bezier(.2,.8,.2,1) both; }
+.lm-stagger > *:nth-child(2) { animation-delay: .08s }
+.lm-stagger > *:nth-child(3) { animation-delay: .16s }
+.lm-stagger > *:nth-child(4) { animation-delay: .24s }
+.lm-pop { animation: lm-pop .5s cubic-bezier(.2,.9,.3,1.2) both; }
+.lm-float { animation: lm-float 3.6s ease-in-out infinite; }
+
+.lm-btn-sheen { position: relative; overflow: hidden; }
+.lm-btn-sheen::after {
+  content: ""; position: absolute; inset: 0; width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+  animation: lm-sheen 2.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lm-page, .lm-stagger > *, .lm-pop, .lm-float, .lm-btn-sheen::after { animation: none !important; }
+}
+
+/* dipakai beranda setelah opening selesai */
+@keyframes op-slow-zoom { from { transform: scale(1) } to { transform: scale(1.08) } }
+@keyframes op-char-right { from { opacity: 0; transform: translateX(240px) } 25% { opacity: 1 } to { opacity: 1; transform: none } }
+
+/* Panggung lab 16:9 */
+.lm-stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: center center; display: flex; flex-direction: column; overflow: hidden; }
+.lm-scroll { scrollbar-width: thin; scrollbar-color: #8e99ae transparent; }
